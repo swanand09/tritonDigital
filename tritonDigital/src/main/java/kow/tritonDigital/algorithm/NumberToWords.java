@@ -11,8 +11,9 @@ public class NumberToWords {
 	 * @return word version the number i
 	 */
 	private String _1To10(int i) {
+
 		String inWords = "";
-		switch (i % 10) {
+		switch (i) {
 		case 1:
 			inWords = "one";
 			break;
@@ -39,6 +40,10 @@ public class NumberToWords {
 			break;
 		case 9:
 			inWords = "nine";
+			break;
+		case 10:
+			inWords = "ten";
+			break;
 		default:
 			inWords = "";
 			break;
@@ -52,7 +57,7 @@ public class NumberToWords {
 	 *            i should be between 11 and 20
 	 * @return word version the number i
 	 */
-	private String _11To20(int i) {
+	private String _11To19(int i) {
 		String inWords = "";
 		switch (i % 20) {
 		case 11:
@@ -77,7 +82,7 @@ public class NumberToWords {
 	 *            i should be between 20 and 100
 	 * @return word version the number i
 	 */
-	private String _20To100(int i) {
+	private String _20To99(int i) {
 		int remainder = i % 10;
 		int quotient = i / 10;
 		StringBuilder inWords = new StringBuilder();
@@ -117,16 +122,16 @@ public class NumberToWords {
 	 */
 	public String lessthan100(int i) {
 		String inWords = "";
-		if (i < 10) {
+		if (i <= 10) {
 			inWords = _1To10(i);
 		}
 
 		if ((i > 10) && (i < 20)) {
-			inWords = _11To20(i);
+			inWords = _11To19(i);
 		}
 
 		if (i > 20) {
-			inWords = _20To100(i);
+			inWords = _20To99(i);
 		}
 		return inWords;
 	}
@@ -144,7 +149,8 @@ public class NumberToWords {
 		StringBuilder inWords = new StringBuilder();
 		if (hundreds > 0)
 			inWords.append(_1To10(hundreds)).append(" ").append("hundred");
-		inWords.append(" ").append(lessthan100(remainder));
+		if (remainder > 0)
+			inWords.append(" ").append(lessthan100(remainder));
 		return inWords.toString();
 	}
 
@@ -155,7 +161,7 @@ public class NumberToWords {
 	 * @return number in words
 	 */
 	public String inWords(long i) {
-		
+
 		if (i == 0) {
 			return "Zero";
 		}
@@ -167,25 +173,27 @@ public class NumberToWords {
 		do {
 			int quotient = (int) (i % 1000);
 			if (quotient != 0) {
-				numberTowords += (lessthan1000(quotient))
+				numberTowords += (lessthan1000(quotient)) + " "
 						+ thousandPowerInWords(thousandPower);
 				s.push(numberTowords);
 			}
 
 			numberTowords = "";
 			i = i / 1000;
+
 			if (i > 0) {
 				thousandPower += 1;
 			}
 		} while (i > 0);
-		
+
 		StringBuilder sb = new StringBuilder();
 		while (!s.isEmpty()) {
 			sb.append(s.pop());
-			if(!s.empty()) sb.append(", ");
+			if (!s.empty())
+				sb.append(", ");
 		}
-		
-		//we make the first character uppercase
+
+		// we make the first character uppercase
 		String firstCharacter = (sb.charAt(0) + "").toUpperCase();
 		sb.replace(0, 1, firstCharacter);
 		return sb.toString().trim();
@@ -206,8 +214,9 @@ public class NumberToWords {
 
 	public static void main(String[] args) {
 		NumberToWords numToWord = new NumberToWords();
-																																					// System.out.println(numToWord.lessthan1000(981));
+		// System.out.println(numToWord.lessthan1000(981));
 		System.out.println(numToWord.inWords(100282));
+		System.out.println(numToWord.inWords(10));
 	}
 
 }

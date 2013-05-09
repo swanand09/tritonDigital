@@ -1,4 +1,4 @@
-package kow.tritonDigital.UnitTesting;
+package kow.tritonDigital.unitTesting;
 
 import java.io.File;
 

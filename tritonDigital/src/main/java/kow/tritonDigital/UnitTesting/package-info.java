@@ -5,4 +5,4 @@
  * @author Renghen
  *
  */
-package kow.tritonDigital.UnitTesting;
+package kow.tritonDigital.unitTesting;

@@ -198,6 +198,35 @@ public class NumberToWords {
 		sb.replace(0, 1, firstCharacter);
 		return sb.toString().trim();
 	}
+   /**
+    * recursive version
+    * @param i
+    * @return
+    */
+	public String inWordsRec(long i) {
+		byte b = 0;
+		String result= inWordsRec(i,b);
+		//makes first character Uppercase
+		char[] stringArray = result.toCharArray();
+		stringArray[0] = Character.toUpperCase(stringArray[0]);
+		result = new String(stringArray);
+		
+		return result;
+	}
+	/**
+	 * the real function that makes it recusive
+	 * @param i
+	 * @param thousandPower
+	 * @return
+	 */
+	private String inWordsRec(long i,byte thousandPower) {
+		if (i < 1000) {
+			return lessthan1000((int) i)+ " "
+					+ thousandPowerInWords(thousandPower) + ", ";
+		} else {
+			return inWordsRec(i / 1000,(byte)(thousandPower + 1)) + (lessthan1000((int)i % 1000));
+		}
+	}
 
 	private String thousandPowerInWords(byte b) {
 		String inWords = "";
@@ -217,6 +246,7 @@ public class NumberToWords {
 		// System.out.println(numToWord.lessthan1000(981));
 		System.out.println(numToWord.inWords(100282));
 		System.out.println(numToWord.inWords(10));
+		System.out.println(numToWord.inWordsRec(100282).trim());
 	}
 
 }

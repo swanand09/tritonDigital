@@ -171,9 +171,9 @@ public class NumberToWords {
 		Stack<String> s = new Stack<String>();
 
 		do {
-			int quotient = (int) (i % 1000);
-			if (quotient != 0) {
-				numberTowords += (lessthan1000(quotient)) + " "
+			int remainder = (int) (i % 1000);
+			if (remainder != 0) {
+				numberTowords += (lessthan1000(remainder)) + " "
 						+ thousandPowerInWords(thousandPower);
 				s.push(numberTowords);
 			}
